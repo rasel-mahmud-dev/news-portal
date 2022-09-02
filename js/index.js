@@ -78,7 +78,18 @@ const newsContainer = findById("news-container")
 const newsResponseMessage = findById("news-response-message")
 
 
+let loader = findById("loading")
+loader.classList.add("block")
+
+
 getNewsByCategoryId(activeCategory.id, (news, errMessage)=>{
+
+    // hide news loader
+    // fake delay timeout for delay remove loader
+    setTimeout(()=>{
+        loader.classList.add("hidden")
+    }, 400)
+
     if (!errMessage){
 
         if(news.length === 0){
