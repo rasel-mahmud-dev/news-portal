@@ -28,7 +28,7 @@ body{
 }
 
 .spiner{
-    display: none;
+    display: block;
     position: relative;
     margin: auto;
     height: 40px;

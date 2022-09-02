@@ -7,7 +7,8 @@ let activeCategory = {
 }
 
 
-
+// loader element
+let loader = findById("loading")
 
 
 
@@ -20,6 +21,8 @@ const categoryList = findById("category-list")
  step 2   => get categories name from api call
  step 3   => create li category dom element
  step 4   => push li inside category container
+
+ step 5  => click category to fetch news for other categories
 */
 
 getAllCategory((categoryData)=>{
@@ -51,6 +54,15 @@ function handleClickOnCategory(element, categoryId){
 
     // add active class that has been clicked
     element.classList.add("active-category")
+
+
+    // start loader animation
+    loader.classList.add("block")
+    loader.classList.remove("hidden")
+
+
+    // re-fetch all news for other categories
+    fetchNewsHandler(categoryId);
 }
 
 
@@ -78,40 +90,37 @@ const newsContainer = findById("news-container")
 const newsResponseMessage = findById("news-response-message")
 
 
-let loader = findById("loading")
-loader.classList.add("block")
+function fetchNewsHandler(id){
+    getNewsByCategoryId(id, (news, errMessage)=>{
 
+        // hide news loader
+        // fake delay timeout for delay remove loader
+        setTimeout(()=>{
+            loader.classList.add("hidden")
+        }, 400)
 
-getNewsByCategoryId(activeCategory.id, (news, errMessage)=>{
+        if (!errMessage){
 
-    // hide news loader
-    // fake delay timeout for delay remove loader
-    setTimeout(()=>{
-        loader.classList.add("hidden")
-    }, 400)
+            if(news.length === 0){
+                newsResponseMessage.innerText = `not news found for category ${activeCategory.name}`
+                newsContainer.innerHTML = null
+                return;
+            }
 
-    if (!errMessage){
+            // update response message
+            newsResponseMessage.innerText = `${news.length} items found for category ${activeCategory.name}`
 
-        if(news.length === 0){
-            newsResponseMessage.innerText = `not news found for category ${activeCategory.name}`
             newsContainer.innerHTML = null
-            return;
-        }
-
-        // update response message
-        newsResponseMessage.innerText = `${news.length} items found for category ${activeCategory.name}`
-
-        newsContainer.innerHTML = null
 
 
-        news.sort(sortByViews).forEach((eachNews)=>{
+            news.sort(sortByViews).forEach((eachNews)=>{
 
-            // others_info {is_todays_pick: false, is_trending: true}
-            // rating {number: 4.5, badge: 'Excellent'}
+                // others_info {is_todays_pick: false, is_trending: true}
+                // rating {number: 4.5, badge: 'Excellent'}
 
-            const { author, category_id, thumbnail_url, title, total_view, rating, _id, details, image_url, } = eachNews
+                const { author, category_id, thumbnail_url, title, total_view, rating, _id, details, image_url, } = eachNews
 
-            let newsMarkup  = `
+                let newsMarkup  = `
              <div class="card bg-white shadow-xs p-5">
                   <div class="flex">
                        <div class="news-thumb w-full">
@@ -157,18 +166,21 @@ getNewsByCategoryId(activeCategory.id, (news, errMessage)=>{
 			</div>
              `
 
-            let div = createDomElement("div", "mx-3 p-4", {
-                innerHTML: newsMarkup,
-                events: {
-                    "click": (e)=> alert("hi")
-                }
-            });
+                let div = createDomElement("div", "mx-3 p-4", {
+                    innerHTML: newsMarkup,
+                    events: {
+                        "click": (e)=> alert("hi")
+                    }
+                });
 
-            newsContainer.appendChild(div)
+                newsContainer.appendChild(div)
 
-        })
-    } else {
-        // handle error
-        newsResponseMessage.innerText = errMessage
-    }
-})
+            })
+        } else {
+            // handle error
+            newsResponseMessage.innerText = errMessage
+        }
+    })
+}
+
+fetchNewsHandler(activeCategory.id)
