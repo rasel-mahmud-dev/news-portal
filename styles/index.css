@@ -22,3 +22,7 @@ body{
     color: rgb(59 130 246 / 1);
     background:  rgb(59 130 246 / 0.1);
 }
+
+.news-thumb{
+    max-width: 210px;
+}
