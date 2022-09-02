@@ -9,6 +9,10 @@ body{
     color: #949494 !important;
 }
 
+.logo{
+    font-family: 'Playfair Display', serif;
+}
+
 .category-item{
     padding: 4px 10px;
     cursor: pointer;
@@ -66,4 +70,8 @@ body{
     0%{ rotate: 0deg }
     100%{ rotate: 360deg }
 
+}
+
+footer p{
+    font-family: 'Playfair Display', serif;
 }

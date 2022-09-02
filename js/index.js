@@ -10,6 +10,8 @@ let activeCategory = {
 // loader element
 let loader = findById("loading")
 
+let noNewsMessage = findById("no-news-message")
+
 
 
 const categoryList = findById("category-list")
@@ -28,10 +30,13 @@ const categoryList = findById("category-list")
 getAllCategory((categoryData)=>{
     if (categoryData){
         categoryData.forEach((category)=>{
-            let li = document.createElement("li")
-            li.innerText = category.category_name;
+
+            let li = createDomElement("li", "category-item", {
+                innerText: category.category_name
+            })
+
             li.addEventListener("click", (e)=>handleClickOnCategory(li, category.category_id))
-            li.classList.add("category-item")
+
             categoryList.appendChild(li)
 
             if(category.category_id === activeCategory.id){
@@ -94,16 +99,16 @@ function fetchNewsHandler(id){
     getNewsByCategoryId(id, (news, errMessage)=>{
 
         // hide news loader
-        // fake delay timeout for delay remove loader
-        setTimeout(()=>{
-            loader.classList.add("hidden")
-        }, 400)
+        loader.classList.add("hidden")
+        newsContainer.innerHTML = null
+
+
 
         if (!errMessage){
 
             if(news.length === 0){
                 newsResponseMessage.innerText = `not news found for category ${activeCategory.name}`
-                newsContainer.innerHTML = null
+                noNewsMessage.innerText = "No News Found"
                 return;
             }
 
@@ -179,6 +184,7 @@ function fetchNewsHandler(id){
         } else {
             // handle error
             newsResponseMessage.innerText = errMessage
+            noNewsMessage.innerText = "No news fetched because internet interrupt"
         }
     })
 }
