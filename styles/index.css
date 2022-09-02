@@ -8,3 +8,17 @@ body{
     background: #F6F6F6 !important;
     color: #949494 !important;
 }
+
+.category-item{
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.category-item:hover{
+    color: rgb(59 130 246 / 1);
+    background:  rgb(59 130 246 / 0.1);
+}
+.active-category{
+    color: rgb(59 130 246 / 1);
+    background:  rgb(59 130 246 / 0.1);
+}

@@ -1,6 +1,8 @@
 
 
-const activeCategoryId = "05"
+// Application State Variables
+let activeCategoryId = "05"
+
 
 
 
@@ -22,12 +24,26 @@ getAllCategory((categoryData)=>{
         categoryData.forEach((category)=>{
             let li = document.createElement("li")
             li.innerText = category.category_name;
+            li.addEventListener("click", (e)=>handleClickOnCategory(li, category.category_id))
+            li.classList.add("category-item")
             categoryList.appendChild(li)
 
             if(category.category_id === activeCategoryId){
-                li.className = "bg-blue-500/10 text-blue-500 px-3 py-0.5"
+                li.className =  "category-item active-category"
             }
-
         })
     }
 })
+
+function handleClickOnCategory(element, categoryId){
+    activeCategoryId = categoryId;
+
+    // remove  active class that clicked before
+    let findActiveCategory = document.querySelector(".active-category")
+    findActiveCategory && findActiveCategory.classList.remove("active-category")
+
+    // add active class that has been clicked
+    element.classList.add("active-category")
+}
+
+

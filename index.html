@@ -19,6 +19,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
 	      rel="stylesheet">
 	
+	<!-- fontawesome script link -->
+    <script src="https://kit.fontawesome.com/d3cefd4379.js" crossorigin="anonymous"></script>
+	
 	<!-- google font Berkshire Swash -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,27 +69,92 @@
 	</header>
 	
 	
-	<!-- category menubar start -->
+
 	<section class="max-w-screen-xl mx-auto mt-8 px-4">
+		
+		<!-- category menubar start -->
 		<ul class="flex items-center gap-x-14" id="category-list">
-<!-- 			<li>Home</li> -->
-<!-- 			<li>Breaking news</li> -->
-<!-- 			<li>Regular news</li> -->
-<!-- 			<li>International news</li> -->
-<!-- 			<li>Sports</li> -->
-<!-- 			<li class="bg-blue-500/10 text-blue-500 px-3 py-0.5">Entertainment</li> -->
-<!-- 			<li>Culture</li> -->
-<!-- 			<li>Arts</li> -->
-<!-- 			<li>All news</li> -->
 		</ul>
+		<!-- category menubar start -->
+		
+		
+		
+		<!-- search result display  -->
+		<div class="bg-white rounded-md p-5 mt-8">
+			<h4 class="text-neutral-900 font-medium">4 items found for category Entertainment</h4>
+		</div>
+		
+		<div class="flex justify-between mt-8">
+			<div>
+				<label for="sort">Sort By View:</label>
+				<select type="text" id="sort" class="input input-sm  bg-white py-0 ml-4">
+					<option>Popular</option>
+				</select>
+			</div>
+			<div>
+				<button class="btn  btn-sm  bg-blue-500 rounded border-none ">Today’s</button>
+				<button class="btn  btn-sm btn-outline rounded border-none ">Trending</button>
+			</div>
+		</div>
+		
+		
+		
+		<!-- news list -->
+		
+		<div class="mt-10" id="news-container">
+			
+			<div class="card bg-white shadow-xs p-5">
+			  <div class="flex">
+				  <img class="rounded-2xl" src="https://placeimg.com/400/225/arch" alt="Shoes" />
+				  <div class="card-body">
+				    <h2 class="card-title text-neutral-700 ">The best fashion influencers to follow for sartorial inspiration</h2>
+				   <p>
+					   From our favourite UK influencers to the best missives from Milan and the coolest New Yorkers, read on some of the best fashion blogs out there, and for even more inspiration, do head to our separate black fashion influencer round-up.
+				  
+					  <div class="card-footer flex justify-between mt-4 items-center">
+					    <div class="flex items-center">
+						    <img src="images/Avatar.png" class="w-10 h-10 rounded-full" alt="">
+						    <div class="ml-1.5">
+							    <h1 class="text-neutral-700 leading-none">Jane Copper</h1>
+							    <small class="text-neutral-400">Jan 10, 2022</small>
+						    </div>
+					    </div>
+					    <div class="flex items-center">
+						    <i class="fa fa-eye"></i>
+						    <h2 class="text-neutral-700 font-medium ml-2">1.5M</h2>
+					    </div>
+					    <div>
+						    <div class="rating">
+							  <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+							  <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
+							  <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500"  checked />
+							  <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+							  <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+							</div>
+					    </div>
+					    <div>
+						      <i class="fa fa-arrow-right"></i>
+					    </div>
+				  </div>
+				  
+				  </div>
+			  </div>
+			</div>
+			
+		</div>
+		
 		
 	</section>
-	<!-- category menubar start -->
+
+	
+	
+	
 	
 
 
 
 
+<script src="js/apiRequest.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/index.js"></script>
 </body>
