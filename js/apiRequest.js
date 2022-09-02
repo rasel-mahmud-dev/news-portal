@@ -15,8 +15,10 @@ function getNewsByCategoryId(categoryId, callback){
         .then((data)=>{
             if(data.status){
                 callback(data.data, "")
+            } else {
+                callback([], "")
             }
         })
-        .catch((ex)=>callback([], ex.message))
+        .catch((ex)=>callback(null, ex.message))
 }
 

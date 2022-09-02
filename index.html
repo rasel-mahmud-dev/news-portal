@@ -70,7 +70,21 @@
 	</header>
 	<!-- navigation bar end -->
 	
+	
+	<!-- Put this part before </body> tag -->
 
+	<div class="modal modal-bottom sm:modal-middle" id="my-modal">
+	  <div class="modal-box">
+	  <div id="modal-content"></div>
+	    <div class="modal-action">
+	      <button  class="btn bg-blue-600" onclick="closeModal()">Yay!</button>
+	    </div>
+	  </div>
+	</div>
+	
+	
+
+	<!-- main section -->
 	<section class="max-w-screen-xl mx-auto mt-8 px-4">
 		
 		<!-- category menubar start -->
@@ -94,8 +108,8 @@
 				</select>
 			</div>
 			<div>
-				<button class="btn  btn-sm  bg-blue-500 rounded border-none ">Today’s</button>
-				<button class="btn  btn-sm btn-outline rounded border-none ">Trending</button>
+				<button class="btn btn-sm text-white font-normal bg-blue-500 rounded border-none hover:bg-blue-600 ">Today’s</button>
+				<button class="btn btn-sm btn-outline border-blue-600 text-blue-500 font-normal rounded ml-1  hover:bg-blue-600  hover:text-white ">Trending</button>
 			</div>
 		</div>
 		
@@ -120,6 +134,7 @@
 	</section>
 
 	
+	<!-- footer	 -->
 	<footer class="bg-white py-8 mt-10">
 		<p class="text-center font-semibold text-neutral-500">Copyright 2021 News Portal</p>
 	</footer>

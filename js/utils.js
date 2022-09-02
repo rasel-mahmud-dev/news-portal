@@ -1,15 +1,24 @@
 
 
-function findById(id){
+const findById = id => {
     return document.getElementById(id)
 }
 
+const openModal = () => {
+    let modalRoot = findById("my-modal")
+    modalRoot.classList.add("open-modal")
+}
 
+
+const closeModal = () => {
+    let modalRoot = findById("my-modal")
+    modalRoot.classList.remove("open-modal")
+}
 
 
 /// create daynamacally html element with functions
 
-function createDomElement(tagName="div", className, other){
+const createDomElement = (tagName="div", className, other)=>{
     let element = document.createElement(tagName)
 
     const { innerHTML, innerText, events } = other
@@ -31,4 +40,3 @@ function createDomElement(tagName="div", className, other){
     return element;
 
 }
-

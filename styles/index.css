@@ -27,6 +27,17 @@ body{
     background:  rgb(59 130 246 / 0.1);
 }
 
+.modal.open-modal{
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.modal-box{
+    background-color: white !important;
+    max-width: 1000px !important;
+}
+
 .news-thumb{
     max-width: 210px;
 }
