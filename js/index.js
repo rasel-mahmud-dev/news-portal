@@ -1,7 +1,10 @@
 
 
 // Application State Variables
-let activeCategoryId = "05"
+let activeCategory = {
+    id: "05",
+    name: "Entertainment"
+}
 
 
 
@@ -28,7 +31,7 @@ getAllCategory((categoryData)=>{
             li.classList.add("category-item")
             categoryList.appendChild(li)
 
-            if(category.category_id === activeCategoryId){
+            if(category.category_id === activeCategory.id){
                 li.className =  "category-item active-category"
             }
         })
@@ -36,10 +39,14 @@ getAllCategory((categoryData)=>{
 })
 
 function handleClickOnCategory(element, categoryId){
-    activeCategoryId = categoryId;
+    activeCategory = {
+        id:categoryId,
+        name: element.innerText
+    }
 
     // remove  active class that clicked before
     let findActiveCategory = document.querySelector(".active-category")
+
     findActiveCategory && findActiveCategory.classList.remove("active-category")
 
     // add active class that has been clicked
@@ -59,22 +66,39 @@ function sortByViews(itemA, itemB){
     }
 }
 
+
+
+
 // handle news
+
+// all news container
 const newsContainer = findById("news-container")
-getNewsByCategoryId(activeCategoryId, (news)=>{
-    if (news){
+
+// fetch news slats message container
+const newsResponseMessage = findById("news-response-message")
+
+
+getNewsByCategoryId(activeCategory.id, (news, errMessage)=>{
+    if (!errMessage){
+
+        if(news.length === 0){
+            newsResponseMessage.innerText = `not news found for category ${activeCategory.name}`
+            newsContainer.innerHTML = null
+            return;
+        }
+
+        // update response message
+        newsResponseMessage.innerText = `${news.length} items found for category ${activeCategory.name}`
 
         newsContainer.innerHTML = null
 
-        news.sort(sortByViews).forEach((eachNews)=>{
-            console.log(eachNews)
 
-            // {name: 'Ukrainska Pravda', published_date: '2022-08-25 18:53:49', img: 'https://images.unsplash.com/photo-1633332755192-72…HxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'}
+        news.sort(sortByViews).forEach((eachNews)=>{
+
             // others_info {is_todays_pick: false, is_trending: true}
             // rating {number: 4.5, badge: 'Excellent'}
 
             const { author, category_id, thumbnail_url, title, total_view, rating, _id, details, image_url, } = eachNews
-
 
             let newsMarkup  = `
              <div class="card bg-white shadow-xs p-5">
@@ -106,7 +130,7 @@ getNewsByCategoryId(activeCategoryId, (news)=>{
                                     <div class="rating">
                                       <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
                                       <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
-                                      <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
+                                      <input type="radio" name="rating-5" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
                                       <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
                                       <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
                                     </div>
@@ -134,5 +158,6 @@ getNewsByCategoryId(activeCategoryId, (news)=>{
         })
     } else {
         // handle error
+        newsResponseMessage.innerText = errMessage
     }
 })

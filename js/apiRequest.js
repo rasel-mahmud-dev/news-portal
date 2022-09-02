@@ -5,7 +5,7 @@ function getAllCategory(callback){
         .then((data)=>{
             callback(data.data.news_category)
         })
-        .catch(callback(null))
+        .catch((ex)=>callback(null))
 }
 
 
@@ -14,9 +14,9 @@ function getNewsByCategoryId(categoryId, callback){
         .then(response=>response.json())
         .then((data)=>{
             if(data.status){
-                callback(data.data)
+                callback(data.data, "")
             }
         })
-        .catch(callback(null))
+        .catch((ex)=>callback([], ex.message))
 }
 
