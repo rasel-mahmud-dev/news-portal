@@ -57,11 +57,11 @@
 			<div class="flex justify-between">
 				<div class="logo font-medium">
 					<button
-						class="btn btn-sm  rounded hover:bg-blue-600 border-none bg-blue-500 text-white">News</button>
-					<span class="text-blue-500 ml-2">World</span>
+						class="btn btn-sm rounded hover:bg-blue-600 border-none bg-blue-500 text-white">News</button>
+					<span class="text-blue-500 ml-1">World</span>
 				</div>
 			
-				<ul class="flex items-center gap-x-8">
+				<ul class="flex items-center gap-x-3 sm:gap-x-6 md:gap-x-8">
 					<li class="text-blue-500 font-medium border-b-2 border-blue-600"><a href="index.html">News</a></li>
 					<li class="">
 						<a href="blog.html">Blog</a>
@@ -79,9 +79,6 @@
 	<div class="modal modal-bottom sm:modal-middle" id="my-modal">
 	  <div class="modal-box">
 	  <div id="modal-content"></div>
-	    <div class="modal-action">
-	      <button  class="btn bg-blue-600" onclick="closeModal()">Yay!</button>
-	    </div>
 	  </div>
 	</div>
 	
@@ -105,9 +102,12 @@
 		<!-- filter menubar -->
 		<div class="flex justify-between mt-8">
 			<div class="flex flex-col items-center xs:flex-row gap-y-2">
-				<label for="sort" class="whitespace-nowrap">Sort By View:</label>
+				<label for="sort" class="whitespace-nowrap">Sort By:</label>
 				<select type="text" id="sort" class="input input-sm  bg-white py-0 ml-0 md:ml-4">
-					<option>Default</option>
+					<option value="">Default</option>
+					<option value="total_view">Views</option>
+					<option value="rating">Rating</option>
+					<option value="title">Title</option>
 				</select>
 			</div>
 			<div class="flex flex-col  xs:flex-row gap-y-2">
@@ -141,10 +141,8 @@
 	
 	<!-- footer	 -->
 	<footer class="bg-white py-8 mt-10">
-		<p class="text-center font-semibold text-neutral-500">Copyright 2021 News Portal</p>
+		<p class="text-center font-semibold text-neutral-500">Copyright 2022 News Portal</p>
 	</footer>
-	
-	
 	
 
 
