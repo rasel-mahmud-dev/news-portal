@@ -1,4 +1,5 @@
 
+// fetch all category from api
 function getAllCategory(callback){
     fetch("https://openapi.programming-hero.com/api/news/categories")
         .then(response=>response.json())
@@ -9,6 +10,7 @@ function getAllCategory(callback){
 }
 
 
+// fetch news by categoryId from api
 function getNewsByCategoryId(categoryId, callback){
     fetch(`https://openapi.programming-hero.com/api/news/category/${categoryId}`)
         .then(response=>response.json())

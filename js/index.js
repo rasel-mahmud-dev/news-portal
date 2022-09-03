@@ -25,41 +25,48 @@ let sortBy = {
     order: -1, // -1 first show total count of number
 }
 
+// store all fetched news. because we will sort without duplicate api call.
 let fetchedNews = []
 
 
+window.addEventListener("DOMContentLoaded", (e)=>{
 
+    // fetch all categories;
+    /**
+     TASK: Category List insert
+     step 1   => get categories list container
+     step 2   => get categories name from api call
+     step 3   => create li category dom element
+     step 4   => push li inside category container
+     step 5  => click category to fetch news for other categories
+     */
+    getAllCategory((categoryData) => {
+        if (categoryData) {
+            categoryData.forEach((category) => {
 
+                let li = createDomElement("li", "category-item", {
+                    innerText: category.category_name
+                })
 
+                li.addEventListener("click", (e) => handleClickOnCategory(li, category.category_id))
 
-/**
- TASK: Category List insert
- step 1   => get categories list container
- step 2   => get categories name from api call
- step 3   => create li category dom element
- step 4   => push li inside category container
+                categoryList.appendChild(li)
 
- step 5  => click category to fetch news for other categories
- */
-
-getAllCategory((categoryData) => {
-    if (categoryData) {
-        categoryData.forEach((category) => {
-
-            let li = createDomElement("li", "category-item", {
-                innerText: category.category_name
+                if (category.category_id === activeCategory.id) {
+                    li.className = "category-item active-category"
+                }
             })
+        }
+    })
 
-            li.addEventListener("click", (e) => handleClickOnCategory(li, category.category_id))
 
-            categoryList.appendChild(li)
+    // load initial news
+    fetchNewsHandler(activeCategory.id)
 
-            if (category.category_id === activeCategory.id) {
-                li.className = "category-item active-category"
-            }
-        })
-    }
 })
+
+
+
 
 // handle click on each news item
 function handleClickOnCategory(element, categoryId) {
@@ -87,7 +94,6 @@ function handleClickOnCategory(element, categoryId) {
 }
 
 
-
 // array sort handler fn
 function sortHandler(a, b) {
     let order = sortBy.order
@@ -98,7 +104,6 @@ function sortHandler(a, b) {
 
     return result * order
 }
-
 
 
 // all news container
@@ -150,6 +155,7 @@ function fetchNewsHandler(id) {
 }
 
 
+
 // loop all news and populated in dom
 function createNews(news){
     news.sort(sortHandler).forEach((eachNews) => {
@@ -165,41 +171,46 @@ function createNews(news){
         let newsMarkup = `
                  <div class="card bg-white shadow-xs p-6 my-8">
                       <div class="flex flex-col md:flex-row">
-                           <div class="news-thumb w-full mx-auto md:mx-auto">
+                           <div class="news-thumb w-full md:w-auto  mx-auto md:mx-auto">
                                 <img class="rounded-2xl w-full" src="${thumbnail_url}" alt="news-thumbnail" />
                             </div>
-                          <div class="card-bod ml-0 md:ml-4 mt-6 md:mt-0">
-                                <h2 class="card-title text-neutral-700 mb-2">${title}</h2>
-                                 <p>${details.length > 700 ? `
-                                        <span>${details.substring(0, 700)}...</span> 
-                                        <button class="btn-link text-blue-400 ml-2">read more</button>
-                                    ` : details} 
-                                  </p>
-                              
-                                  <div class="card-footer grid gap-y-4 md:grid-flow-col grid-cols-2 md:grid-cols-none justify-between mt-4 items-center">
-                                    <div class="flex items-center">
-                                        <img src="${(author && author.img) ? author.img : 'images/Avatar.jpg'}" class="w-10 h-10 rounded-full" alt="">
-                                        <div class="ml-1.5">
-                                            <h1 class="text-neutral-500 text-sm font-medium leading-none">${author ? author.name : "Unknown author"}</h1>
-                                            <small class="text-neutral-400">${author ? author.published_date : "unknown date"}</small>
+                          <div class="w-full ml-0 md:ml-4 mt-6 md:mt-0">
+                                
+                                <div class="flex flex-col h-full justify-between">
+                                    <div class="">
+                                        <h2 class="card-title text-neutral-700 mb-2">${title}</h2>
+                                         <p>${details.length > 700 ? `
+                                                <span>${details.substring(0, 700)}...</span> 
+                                                <button class="btn-link text-blue-400 ml-2">read more</button>
+                                            ` : details} 
+                                          </p>
+                                    </div>
+                                  
+                                     <div class="card-footer grid gap-y-4 md:grid-flow-col grid-cols-2 md:grid-cols-none justify-between  items-center">
+                                        <div class="flex items-center">
+                                            <img src="${(author && author.img) ? author.img : 'images/Avatar.jpg'}" class="w-10 h-10 rounded-full" alt="">
+                                            <div class="ml-1.5">
+                                                <h1 class="text-neutral-500 text-sm font-medium leading-none">${author ? author.name : "Unknown author"}</h1>
+                                                <small class="text-neutral-400">${author ? author.published_date : "unknown date"}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="flex items-center justify-self-end">
-                                        <i class="fa fa-eye"></i>
-                                        <h2 class="ml-1 text-neutral-500 text-sm font-medium">${total_view}</h2>
-                                    </div>
-                                    <div>
-                                        <div class="rating">
-                                          <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
-                                          <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
-                                          <input type="radio" name="rating-5" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
-                                          <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
-                                          <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+                                        <div class="flex items-center justify-self-end">
+                                            <i class="fa fa-eye"></i>
+                                            <h2 class="ml-1 text-neutral-500 text-sm font-medium">${total_view}</h2>
                                         </div>
-                                    </div>
-                                    
-                                    <div class="justify-self-end">
-                                          <i class="fa fa-arrow-right text-blue-400 cursor-pointer" onclick="fetchNewsDetails('${_id}')"></i>
+                                        <div>
+                                            <div class="rating">
+                                              <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+                                              <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
+                                              <input type="radio" name="rating-5" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
+                                              <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+                                              <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="justify-self-end">
+                                              <i class="fa fa-arrow-right text-blue-400 cursor-pointer" onclick="fetchNewsDetails('${_id}')"></i>
+                                        </div>
                                     </div>
                                 </div>
                           
@@ -220,8 +231,6 @@ function createNews(news){
     })
 }
 
-
-fetchNewsHandler(activeCategory.id)
 
 
 // change sort value event listener
@@ -245,7 +254,6 @@ sortInput.addEventListener("change", (e)=>{
     newsContainer.innerHTML = null
     createNews(fetchedNews)
 })
-
 
 
 

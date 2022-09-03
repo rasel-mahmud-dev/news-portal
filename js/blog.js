@@ -96,7 +96,7 @@ const blogs = [
             Another great feature of template strings is that we can have strings with multiple lines for better code readability. With the old style of strings, we had to concatenate each line of the string to put long strings in multiple lines
             
             Nesting Templates:
-Template    strings can be nested in each other. Template strings allow us to nest regular strings or template strings within template strings.
+            Template strings can be nested in each other. Template strings allow us to nest regular strings or template strings within template strings.
         `
     }
 ]
