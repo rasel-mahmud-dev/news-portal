@@ -85,7 +85,7 @@ function sortByViews(itemA, itemB) {
 const newsContainer = findById("news-container")
 
 // fetch news slats message container
-const newsResponseMessage = findById("news-response-message")
+const newsCountMessage = findById("news-count-message")
 
 
 function fetchNewsHandler(id) {
@@ -99,81 +99,74 @@ function fetchNewsHandler(id) {
         if (!errMessage) {
 
             if (news.length === 0) {
-                newsResponseMessage.innerText = `not news found for category ${activeCategory.name}`
+                newsCountMessage.innerText = `No news found for category ${activeCategory.name}`
                 noNewsMessage.innerText = "No News Found"
                 return;
             }
 
             // update response message
-            newsResponseMessage.innerText = `${news.length} items found for category ${activeCategory.name}`
+            newsCountMessage.innerText = `${news.length} items found for category ${activeCategory.name}`
 
             newsContainer.innerHTML = null
 
-
             news.sort(sortByViews).forEach((eachNews) => {
-
-                // others_info {is_todays_pick: false, is_trending: true}
-                // rating {number: 4.5, badge: 'Excellent'}
 
                 const {
                     author,
-                    category_id,
                     thumbnail_url,
                     title,
                     total_view,
-                    rating,
                     _id,
                     details,
-                    image_url,
                 } = eachNews
 
                 let newsMarkup = `
-             <div class="card bg-white shadow-xs p-5">
-                  <div class="flex">
-                       <div class="news-thumb w-full">
-                            <img class="rounded-2xl w-full" src="${thumbnail_url}" alt="news-thumbnail" />
-                        </div>
-                      <div class="card-body p-2 ml-4">
-                            <h2 class="card-title text-neutral-700 mb-2">${title}</h2>
-                             <p>${details.length > 700 ? `
-                                    <span>${details.substring(0, 700)}...</span> 
-                                    <button class="btn-link text-blue-400 ml-2">read more</button>
-                                ` : details} 
-                              </p>
-                          
-                              <div class="card-footer flex justify-between mt-4 items-center">
-                                <div class="flex items-center">
-                                    <img src="${(author && author.img) ? author.img : 'images/Avatar.jpg'}" class="w-10 h-10 rounded-full" alt="">
-                                    <div class="ml-1.5">
-                                        <h1 class="text-neutral-500 text-sm font-medium leading-none">${author ? author.name : "Unknown author"}</h1>
-                                        <small class="text-neutral-400">${author ? author.published_date : "unknown date"}</small>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fa fa-eye"></i>
-                                    <h2 class="ml-1 text-neutral-500 text-sm font-medium">${total_view}</h2>
-                                </div>
-                                <div>
-                                    <div class="rating">
-                                      <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
-                                      <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
-                                      <input type="radio" name="rating-5" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
-                                      <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
-                                      <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                      <i class="fa fa-arrow-right"></i>
-                                </div>
+                 <div class="card bg-white shadow-xs p-6 my-8">
+                      <div class="flex flex-col md:flex-row">
+                           <div class="news-thumb w-full mx-auto md:mx-auto">
+                                <img class="rounded-2xl w-full" src="${thumbnail_url}" alt="news-thumbnail" />
                             </div>
-                      
+                          <div class="card-bod ml-0 md:ml-4 mt-6 md:mt-0">
+                                <h2 class="card-title text-neutral-700 mb-2">${title}</h2>
+                                 <p>${details.length > 700 ? `
+                                        <span>${details.substring(0, 700)}...</span> 
+                                        <button class="btn-link text-blue-400 ml-2">read more</button>
+                                    ` : details} 
+                                  </p>
+                              
+                                  <div class="card-footer grid gap-y-4 md:grid-flow-col grid-cols-2 md:grid-cols-none justify-between mt-4 items-center">
+                                    <div class="flex items-center">
+                                        <img src="${(author && author.img) ? author.img : 'images/Avatar.jpg'}" class="w-10 h-10 rounded-full" alt="">
+                                        <div class="ml-1.5">
+                                            <h1 class="text-neutral-500 text-sm font-medium leading-none">${author ? author.name : "Unknown author"}</h1>
+                                            <small class="text-neutral-400">${author ? author.published_date : "unknown date"}</small>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-self-end">
+                                        <i class="fa fa-eye"></i>
+                                        <h2 class="ml-1 text-neutral-500 text-sm font-medium">${total_view}</h2>
+                                    </div>
+                                    <div>
+                                        <div class="rating">
+                                          <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+                                          <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
+                                          <input type="radio" name="rating-5" class="w-4 ml-1 mask mask-star-2 bg-blue-500" checked />
+                                          <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+                                          <input type="radio" name="rating-4" class="w-4 ml-1 mask mask-star-2 bg-blue-500" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="justify-self-end">
+                                          <i class="fa fa-arrow-right"></i>
+                                    </div>
+                                </div>
+                          
+                          </div>
                       </div>
-                  </div>
-			</div>
+                </div>
              `
 
-                let div = createDomElement("div", "mx-3 p-4", {
+                let div = createDomElement("div", "", {
                     innerHTML: newsMarkup,
                     events: {
                         "click": () => fetchNewsDetails(_id)
@@ -185,7 +178,7 @@ function fetchNewsHandler(id) {
             })
         } else {
             // handle error
-            newsResponseMessage.innerText = errMessage
+            newsCountMessage.innerText = errMessage
             noNewsMessage.innerText = "No news fetched because internet interrupt"
         }
     })
@@ -194,6 +187,9 @@ function fetchNewsHandler(id) {
 fetchNewsHandler(activeCategory.id)
 
 
+
+
+// fetch news details and insert into modal
 async function fetchNewsDetails(newsId) {
     // open modal
     openModal();
@@ -255,9 +251,6 @@ async function fetchNewsDetails(newsId) {
             `
             modalContent.innerHTML = t
         })
-
-        // modalContent.innerText = data.data
-
 
     } catch (ex) {
 

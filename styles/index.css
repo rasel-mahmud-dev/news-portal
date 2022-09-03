@@ -39,7 +39,8 @@ body{
 }
 
 .news-thumb{
-    max-width: 210px;
+    min-width: 210px;
+    max-width: 350px;
 }
 
 .spiner{

@@ -16,10 +16,14 @@ const closeModal = () => {
 }
 
 
-/// create daynamacally html element with functions
+/// create dynamically html element with functions
 
 const createDomElement = (tagName="div", className, other)=>{
     let element = document.createElement(tagName)
+
+    if(!other){
+        return  element;
+    }
 
     const { innerHTML, innerText, events } = other
 

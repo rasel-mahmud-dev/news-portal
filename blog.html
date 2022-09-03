@@ -38,13 +38,7 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script>
 		tailwind.config = {
-			theme: {
-				extend: {
-					screens: {
-						'xs': '420px',
-					}
-				}
-			}
+			theme: {}
 		}
 	</script>
 </head>
@@ -58,13 +52,13 @@
 				<div class="logo font-medium">
 					<button
 						class="btn btn-sm  rounded hover:bg-blue-600 border-none bg-blue-500 text-white">News</button>
-					<span class="text-blue-500 ml-2">World</span>
+					<span class="text-blue-500 ml-1">World</span>
 				</div>
 			
 				<ul class="flex items-center gap-x-8">
-					<li class="text-blue-500 font-medium border-b-2 border-blue-600"><a href="index.html">News</a></li>
-					<li class="">
-						<a href="blog.html">Blog</a>
+					<li><a href="/index.html">News</a></li>
+					<li class="text-blue-500 font-medium border-b-2 border-blue-600">
+						<a href="/blog.html">Blog</a>
 					</li>
 					<li><img class="w-8 rounded-full" src="https://res.cloudinary.com/dbuvg9h1e/image/upload/v1660078654/netflix/images/1660078488473.jpg" alt="user-avatar"></li>
 					
@@ -80,64 +74,18 @@
 	  <div class="modal-box">
 	  <div id="modal-content"></div>
 	    <div class="modal-action">
-	      <button  class="btn bg-blue-600" onclick="closeModal()">Yay!</button>
+	      <button class="btn bg-blue-600" onclick="closeModal()">Yay!</button>
 	    </div>
 	  </div>
 	</div>
 	
 	
-
 	<!-- main section -->
-	<section class="max-w-screen-xl mx-auto mt-8 px-4">
-		
-		<!-- category menubar start -->
-		<ul class="flex items-center gap-x-0 justify-start lg:justify-between xl:justify-start xl:gap-x-14 gap-y-4 flex-wrap lg:flex-nowrap" id="category-list">
-		</ul>
-		<!-- category menubar start -->
-		
-		
-		<!-- search result count display  -->
-		<div class="bg-white rounded-md p-5 mt-8">
-			<h4 class="text-neutral-900 font-medium " id="news-count-message"></h4>
-		</div>
-		
-		
-		<!-- filter menubar -->
-		<div class="flex justify-between mt-8">
-			<div class="flex flex-col items-center xs:flex-row gap-y-2">
-				<label for="sort" class="whitespace-nowrap">Sort By View:</label>
-				<select type="text" id="sort" class="input input-sm  bg-white py-0 ml-0 md:ml-4">
-					<option>Default</option>
-				</select>
-			</div>
-			<div class="flex flex-col  xs:flex-row gap-y-2">
-				<button class="btn btn-sm text-white font-normal bg-blue-500 rounded border-none hover:bg-blue-600 ">Today’s</button>
-				<button class="btn btn-sm btn-outline border-blue-600 text-blue-500 font-normal rounded ml-0 xs:ml-1  hover:bg-blue-600  hover:text-white ">Trending</button>
-			</div>
-		</div>
-		
-		<!-- post loader -->
-		<div class="flex justify-center">
-			
-			<div class="spiner" id="loading">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-		
-		
-		<!-- news list -->
-		<div class="my-10" id="news-container">
-
-		</div>
-		
-		<h1 class="text-center text-3xl text-red-400 font-bold" id="no-news-message"></h1>
-		
-		
-		
+	<section class="max-w-screen-xl mx-auto mt-8 px-4 ">
+		<div id="blog-container"></div>
+	
 	</section>
-
+	
 	
 	<!-- footer	 -->
 	<footer class="bg-white py-8 mt-10">
@@ -146,11 +94,10 @@
 	
 	
 	
-
-
+	
 
 <script src="js/apiRequest.js"></script>
 <script src="js/utils.js"></script>
-<script src="js/index.js"></script>
+<script src="js/blog.js"></script>
 </body>
 </html>
