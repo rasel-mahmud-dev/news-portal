@@ -1,18 +1,33 @@
 
-
+// get element by id
 const findById = id => {
     return document.getElementById(id)
 }
 
+// modal open handler
 const openModal = () => {
     let modalRoot = findById("my-modal")
     modalRoot.classList.add("open-modal")
 }
 
 
+// modal close handler
 const closeModal = () => {
     let modalRoot = findById("my-modal")
     modalRoot.classList.remove("open-modal")
+}
+
+
+// toggle Loader
+const toggleLoader = (isShow) => {
+    let loader = findById("loading")
+    if(isShow){
+        loader.classList.add("block")
+        loader.classList.remove("hidden")
+    } else{
+        loader.classList.add("hidden")
+        loader.classList.remove("block")
+    }
 }
 
 

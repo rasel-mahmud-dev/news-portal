@@ -1,6 +1,3 @@
-
-// loader element
-let loader = findById("loading")
 let noNewsMessage = findById("no-news-message")
 
 // category list container
@@ -22,7 +19,7 @@ let activeCategory = {
 
 let sortBy = {
     name: "total_view",
-    order: -1, // -1 first show total count of number
+    order: -1, // -1 first show totalCount bigger number
 }
 
 // store all fetched news. because we will sort without duplicate api call.
@@ -84,11 +81,6 @@ function handleClickOnCategory(element, categoryId) {
     element.classList.add("active-category")
 
 
-    // start loader animation
-    loader.classList.add("block")
-    loader.classList.remove("hidden")
-
-
     // re-fetch all news for other categories
     fetchNewsHandler(categoryId);
 }
@@ -113,12 +105,18 @@ const newsContainer = findById("news-container")
 // fetch all news and render in dom
 function fetchNewsHandler(id) {
 
+    // start loader animation
+    toggleLoader(true)
+
     newsCountMessage.innerText = ""
     noNewsMessage.innerText = ""
 
     getNewsByCategoryId(id, (news, errMessage) => {
-        // hide news loader
-        loader.classList.add("hidden")
+
+        // hide news loader animation
+        toggleLoader(false)
+
+        // remove old news
         newsContainer.innerHTML = null
 
         // set default sort by total_view
@@ -186,17 +184,17 @@ function createNews(news){
                                           </p>
                                     </div>
                                   
-                                     <div class="card-footer grid gap-y-4 md:grid-flow-col grid-cols-2 md:grid-cols-none justify-between  items-center">
+                                     <div class="card-footer grid gap-y-4 md:grid-flow-col grid-cols-2 md:grid-cols-none justify-between items-center mt-4">
                                         <div class="flex items-center">
                                             <img src="${(author && author.img) ? author.img : 'images/Avatar.jpg'}" class="w-10 h-10 rounded-full" alt="">
                                             <div class="ml-1.5">
-                                                <h1 class="text-neutral-500 text-sm font-medium leading-none">${author ? author.name : "Unknown author"}</h1>
-                                                <small class="text-neutral-400">${author ? author.published_date : "unknown date"}</small>
+                                                <h1 class="text-neutral-500 text-sm font-medium leading-none">${author && author.name ? author.name : "Unknown author"}</h1>
+                                                <small class="text-neutral-400 whitespace-nowrap">${author && author.published_date ? author.published_date : "unknown date"}</small>
                                             </div>
                                         </div>
                                         <div class="flex items-center justify-self-end">
                                             <i class="fa fa-eye"></i>
-                                            <h2 class="ml-1 text-neutral-500 text-sm font-medium">${total_view}</h2>
+                                            <h2 class="ml-1 text-neutral-500 text-sm font-medium">${total_view ? total_view : "no data found"}</h2>
                                         </div>
                                         <div>
                                             <div class="rating">
@@ -235,7 +233,7 @@ function createNews(news){
 
 // change sort value event listener
 sortInput.addEventListener("change", (e)=>{
-    if(e.target.value === "total_view"){
+    if(e.target.value === "total_view" || e.target.value === ""){
         sortBy = {
             name: "total_view",
             order: -1
@@ -321,7 +319,7 @@ async function fetchNewsDetails(newsId) {
         
                     <div>
                         <i class="far fa-clock"></i>
-                        <span class="text-neutral-400 font-medium">${author.published_date}</span>
+                        <span class="text-neutral-400 font-medium">${author.published_date ? author.published_date : "no date found"}</span>
                     </div>
                 </div>
         
