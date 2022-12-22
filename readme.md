@@ -1,6 +1,13 @@
+# news-world 
+
+This is vanila js new website, there use can read news, also they can sort, filter, and category for news.
 
 
 Live Site:  [https://news-world1.netlify.app](https://news-world1.netlify.app)
 
-
-[GitHub Repo](https://github.com/Programming-Hero-Web-Course4/b6-news-portal-assignment-rasel-mahmud-dev)
+#### Uses
+- HTML
+- CSS
+- Javascript
+- fontawesome
+- daisy-ui
